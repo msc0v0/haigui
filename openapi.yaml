@@ -1,107 +1,111 @@
 openapi: 3.0.1
 info:
-  title: 海龟汤游戏插件
-  description: 和用户进行交互，帮助用户玩海龟汤文字游戏，开始提出一个事件，用户会询问问题，根据汤面、汤底和用户的问题，以“是”、“不是”或“不重要”回答。
-  version: "1.0"
+    title: 一起海龟汤插件
+    description: 和用户进行交互，帮助用户玩海龟汤文字游戏，开始提出一个事件，用户会询问问题，根据汤面、汤底和用户的问题，以“是”、“不是”或“不重要”回答。
+    version: "1.0"
 servers:
-  - url: http://[2001:da8:215:8f02:8447:fb10:304e:65f4]:8081/
+    - url: http://106.15.250.229:8088
 paths:
-  /select_story:
-    post:
-      summary: 随机选择一个故事开始游戏
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                story_type:
-                  type: string
-                  description: 用户选择的故事类型
-      responses:
-        "200":
-          description: 返回选中的故事信息
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  title:
-                    type: string
-                  tangmian:
-                    type: string
-  /answer_question:
-    post:
-      summary: 回答用户提出的问题
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                question:
-                  type: string
-                  description: 用户提出的问题
-      responses:
-        "200":
-          description: 用“是”、“不是”或“不重要”回答用户的问题
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  answer:
-                    type: string
-  /make_prediction:
-    post:
-      summary: 用户尝试还原故事内容
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                prediction:
-                  type: string
-                  description: 用户的故事还原尝试
-      responses:
-        "200":
-          description: 判断用户的故事还原是否正确
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  isCorrect:
-                    type: boolean
-  /add_story:
-    post:
-      summary: 允许用户添加自定义故事
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                types:
-                  type: string
-                tangmian:
-                  type: string
-                tangdi:
-                  type: string
-      responses:
-        "200":
-          description: 添加故事的结果
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
+    /select_story:
+        post:
+            operationId: selectStory
+            summary: 随机选择一个故事开始游戏
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                story_type:
+                                    type: string
+                                    description: 用户选择的故事类型
+            responses:
+                "200":
+                    description: 返回选中的故事信息
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    title:
+                                        type: string
+                                    tangmian:
+                                        type: string
+    /answer_question:
+        post:
+            operationId: answerQuestion
+            summary: 回答用户提出的问题
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                question:
+                                    type: string
+                                    description: 用户提出的问题
+            responses:
+                "200":
+                    description: 用“是”、“不是”或“不重要”回答用户的问题
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    answer:
+                                        type: string
+    /make_prediction:
+        post:
+            operationId: makePrediction
+            summary: 用户尝试还原故事内容
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                prediction:
+                                    type: string
+                                    description: 用户的故事还原尝试
+            responses:
+                "200":
+                    description: 判断用户的故事还原是否正确
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    isCorrect:
+                                        type: boolean
+    /add_story:
+        post:
+            operationId: addStory
+            summary: 允许用户添加自定义故事
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                title:
+                                   type: string
+                                types:
+                                    type: string
+                                tangmian:
+                                    type: string
+                                tangdi:
+                                    type: string
+            responses:
+                "200":
+                    description: 添加故事的结果
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    message:
+                                        type: string
